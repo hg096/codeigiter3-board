@@ -1,0 +1,11 @@
+CREATE TABLE `users` (
+	`u_id` INT(10) NOT NULL AUTO_INCREMENT,
+	`u_name` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`u_email` VARCHAR(50) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`u_phone_num` VARCHAR(15) NOT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	PRIMARY KEY (`u_id`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+
+;
