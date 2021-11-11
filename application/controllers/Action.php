@@ -74,7 +74,6 @@ class Action extends CI_Controller
         $pw = $this->db->escape_str($this->security->xss_clean($_POST['pw']));
 
 
-
         $sql = "SELECT * FROM `auth` WHERE `id`='$id'";
         $query = $this->db->query($sql);
 

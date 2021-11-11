@@ -68,6 +68,11 @@ $route["site/join"] = "site/join";
 // http://localhost/ci3-board/index.php/site/boardmodify
 $route["site/login"] = "site/login";
 
+// 테스트
+$route["test/home"] = "test";
+// 테스트 모델로
+$route["test/model/(:any)"] = "test/model/$1";
+
 
 // 유저
 // 

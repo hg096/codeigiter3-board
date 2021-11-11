@@ -12,24 +12,43 @@ class Action_model extends CI_Model
         $this->load->model("action_model");
     }
 
-    // 가입
+    // 데이터 넣기
     function insert_data($tbl, $data)
     {
         $this->db->insert($tbl, $data);
         return True;
     }
 
-    // 모든 데이터 조회
-    public function select_all_data()
+    // 데이터 조회
+    public function select_data($select)
     {
-        $tbl = 'users';
 
-        // 방법 1
-        $this->db->select("*");
-        $this->db->from($tbl);
+
+        if (isset($select['selects']) == true) {
+            $this->db->select($select['selects']);
+        } else {
+            $this->db->select("*");
+        }
+        if (isset($select['from']) == true) {
+            $this->db->from($select['from']);
+        }
+        if (isset($select['where']) == true) {
+            $this->db->where($select['where'], $select['search']);
+        }
+        if (isset($select['where_in']) == true) {
+            $this->db->where_in($select['where'], $select['search']);
+        }
+        if (isset($select['like']) == true) {
+            $this->db->like($select['like'], $select['search']);
+        }
+        if (isset($select['not_like']) == true) {
+            $this->db->not_like($select['not_like'], $select['search']);
+        }
+
         $query = $this->db->get();
         // return $result = $query->result();
         return $result = $query->result_array();
+
 
         // 방법 2
         // $this->db->select("u_name,u_email");
@@ -54,33 +73,11 @@ class Action_model extends CI_Model
         // $query = $this->db->get();
         // return $result = $query->result();
 
-
-        // $result['colum'] = "u_id";
-        // $result['num'] = 1;
-        // $result['tbl'] = "u_id";
-        // $result['updateData'] =[
-        //                         "u_name" => "이름변경2",
-        //                         "u_email" => "이메일변경2@메일.com",
-        //                         "u_phone_num" => "123321",
-        //                     ]
-        // $this->update_table_data($result);
-
     }
 
 
-    public function update_table_data()
+    public function update_data($update)
     {
-
-        // $colum = "u_id";
-        // $num = 1;
-        // $tbl = "users";
-        // $data = array(
-        //     "u_name" => "이름변경2",
-        //     "u_email" => "이메일변경2@메일.com",
-        //     "u_phone_num" => "123321",
-        // );
-        // $this->db->where($colum, $num);
-        // $this->db->update($tbl, $data);
 
         $total = [
             "colum" => "u_id",
@@ -93,33 +90,24 @@ class Action_model extends CI_Model
             ),
         ];
 
-        $total["colum"] = "u_id";
-
-        $this->db->where($total["colum"], $total["num"]);
-        $this->db->update($total["tbl"], $total["data"]);
+        $this->db->where($update["column"], $update["num"]);
+        $this->db->update($update["tbl"], $update["data"]);
 
         return True;
     }
 
-    public function delete_specific_user()
+    public function delete_data($delete)
     {
+        // 디비의 컬럼 값과 인덱스 값
+        // $delete["data"] = [
+        //     "u_id" => 5
+        // ];
 
-        $total = [
-            "colum" => "u_id",
-            "num" => 5,
-            "tbl" => "users",
-
-        ];
-
-        // 방법 1
-        // $this->db->where($total["colum"], $total["num"]);
-        // return $this->db->delete($total["tbl"]);
-
-        // 방법 2
-        return $this->db->delete($total["tbl"], [
-            "u_id" => 4
-        ]);
+        return $this->db->delete($delete["tbl"], $delete["data"]);
     }
+
+    // 
+    // 
 
     public function get_where_condition_query()
     {
