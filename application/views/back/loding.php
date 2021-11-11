@@ -14,7 +14,7 @@
         <!-- 로딩 화면 끝 -->
     </div>
     <? $attributes = array('method' => 'get', 'class' => '', 'id' => 'resultForm');
-    echo form_open(base_url() . 'finishTravel/index/' . $RT_mbti . '', $attributes);
+    echo form_open(base_url() . 'finishTravel/final/' . $RT_mbti . '', $attributes);
     ?>
 
     <!-- ?cmp=result -->
@@ -24,16 +24,16 @@
 </main>
 </body>
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
 
-    setTimeout(() => {
-        $(".loading-wrap").remove();
-        $(".question-wrap").css("display", "block");
+        setTimeout(() => {
+            $(".loading-wrap").remove();
+            $(".question-wrap").css("display", "block");
 
-        $("#resultForm").submit();
+            $("#resultForm").submit();
 
-    }, 3000);
-});
+        }, 3000);
+    });
 </script>
 
 </html>
