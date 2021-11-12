@@ -23,7 +23,6 @@ class Action_model extends CI_Model
     public function select_data($select)
     {
 
-
         if (isset($select['selects']) == true) {
             $this->db->select($select['selects']);
         } else {
@@ -48,31 +47,6 @@ class Action_model extends CI_Model
         $query = $this->db->get();
         // return $result = $query->result();
         return $result = $query->result_array();
-
-
-        // 방법 2
-        // $this->db->select("u_name,u_email");
-        // $this->db->from($tbl);
-        // $query = $this->db->get();
-        // return $result = $query->result();
-
-        // 방법 3
-        // $this->db->select("*");
-        // $this->db->from($tbl);
-        // $this->db->where("u_id", "1"); // u_id에서 1의 값
-        // $query = $this->db->get();
-        // return $result = $query->row_array(); // row_array, row 하나의 데이터만 받아올 때 사용
-
-        // 방법 4 
-        // $this->db->select("*");
-        // $this->db->from($tbl);
-        // $this->db->where(array(
-        //     "u_id" => 2,
-        //     "u_email" => "이메일@메일.com",
-        // )); // u_email에서 이메일@메일.com같은 이름
-        // $query = $this->db->get();
-        // return $result = $query->result();
-
     }
 
 
@@ -151,8 +125,22 @@ class Action_model extends CI_Model
         $this->db->select("*");
         $this->db->from("users");
         $this->db->where_in("u_salary", [3000, 3500, 4000]);
+
+        // 검색 컬럼과 조건이 들어감
+        // $this->db->like("u_email", ".com");
+
         $query = $this->db->get();
 
+        return $result = $query->result();
+    }
+
+    public function get_user_message()
+    {
+        // join tbl_users => id, match user_id inside tbl_messages
+        $this->db->select("*");
+        $this->db->from("users");
+        $this->db->join("messages as m_message", "user.u_id = message.u_user_id");
+        $query = $this->db->get();
         return $result = $query->result();
     }
 }

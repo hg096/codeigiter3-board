@@ -14,10 +14,10 @@
     <div class="container">
         <form action="/ci3-board/index.php/action/register" method="post">
             <h4>회원가입 하기</h4>
-            <p>이름</p><input type="text" name="nickname"><br />
+            <p>이메일</p><input type="email" name="email"><br />
             <p>아이디</p><input type="text" name="id"><br />
-            <p>비밀번호</p><input type="text" name="pw"><br />
-            <p>비밀번호 재입력</p><input type="text" name="pwc"><br />
+            <p>비밀번호</p><input type="password" name="pw"><br />
+            <p>비밀번호 재입력</p><input type="password" name="pwc"><br />
             <input type="submit" value="회원가입" class="submit">
         </form>
     </div>

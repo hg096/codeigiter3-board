@@ -14,26 +14,23 @@
         <!-- 로딩 화면 끝 -->
     </div>
     <? $attributes = array('method' => 'get', 'class' => '', 'id' => 'resultForm');
-    echo form_open(base_url() . 'finishTravel/final/' . $RT_mbti . '', $attributes);
+    echo form_open(base_url() . 'finishTravel/final/' . $type . '', $attributes);
     ?>
-
-    <!-- ?cmp=result -->
     <input type="hidden" name="resultIdx" id="resultIdx" value="<? echo $RT_idx; ?>">
     <input type="hidden" name="resultSection" id="resultSection" value="<? echo $RT_section; ?>">
     <? echo form_close(); ?>
 </main>
 </body>
 <script>
-    $(document).ready(function() {
+$(document).ready(function() {
+    setTimeout(() => {
+        $(".loading-wrap").remove();
+        $(".question-wrap").css("display", "block");
 
-        setTimeout(() => {
-            $(".loading-wrap").remove();
-            $(".question-wrap").css("display", "block");
+        $("#resultForm").submit();
 
-            $("#resultForm").submit();
-
-        }, 3000);
-    });
+    }, 3000);
+});
 </script>
 
 </html>

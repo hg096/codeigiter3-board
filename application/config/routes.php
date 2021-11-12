@@ -60,9 +60,11 @@ $route["site/service/(:num)/(:any)"] = "site/service/$1/$2";
 
 
 // http://localhost/ci3-board/index.php/site/boardwrite
-$route["site/boardwrite"] = "site/write";
+$route["site/write"] = "site/write";
 // http://localhost/ci3-board/index.php/site/boardmodify
-$route["site/boardmodify"] = "site/modify";
+$route["site/modify/(:any)"] = "site/modify/$1";
+
+
 // http://localhost/ci3-board/index.php/site/boardmodify
 $route["site/join"] = "site/join";
 // http://localhost/ci3-board/index.php/site/boardmodify

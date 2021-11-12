@@ -13,7 +13,7 @@
     <form action="/ci3-board/index.php/action/login" method="post">
         <h4>로그인 하기</h4>
         <p>아이디</p><input type="text" name="id"><br />
-        <p>비밀번호</p><input type="text" name="pw"><br />
+        <p>비밀번호</p><input type="password" name="pw"><br />
         <input type="submit" value="로그인" class="submit">
     </form>
 
