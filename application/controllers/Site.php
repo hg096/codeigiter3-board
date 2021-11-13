@@ -17,7 +17,7 @@ class Site extends CI_Controller
     {
         // 데이터 정리
         $data = [
-            "select" => "*", "from" => "posts"
+            "select" => "*", "from" => "board"
         ];
         $board =  $this->action_model->select_data($data);
         // echo "<pre>";
@@ -43,7 +43,7 @@ class Site extends CI_Controller
     {
         // 데이터 정리
         $data = [
-            "select" => "*", "from" => "board", "where" => "id_key", "search" => $idx
+            "select" => "*", "from" => "board", "where" => "b_idx", "search" => $idx
         ];
         $read =  $this->action_model->select_data($data);
 
@@ -60,7 +60,7 @@ class Site extends CI_Controller
     {
         // 데이터 정리
         $data = [
-            "select" => "*", "from" => "posts", "where" => "id_key", "search" => $idx
+            "select" => "*", "from" => "board", "where" => "b_idx", "search" => $idx
         ];
         $read =  $this->action_model->select_data($data);
 

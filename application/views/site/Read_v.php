@@ -26,8 +26,8 @@
     <div id="bo_ser">
         <ul>
             <li><a href="/ci3-board">[목록으로]</a></li>
-            <li><a href="/ci3-board/index.php/site/modify/<?php echo $id_key; ?>">[수정]</a></li>
-            <li><a href="/ci3-board/index.php/site/delete/<?php echo $id_key; ?>">[삭제]</a></li>
+            <li><a href="/ci3-board/site/modify/<?php echo $b_idx; ?>">[수정]</a></li>
+            <li><a href="/ci3-board/site/delete/<?php echo $b_idx; ?>">[삭제]</a></li>
         </ul>
     </div>
 

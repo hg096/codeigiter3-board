@@ -24,24 +24,24 @@
             </tr>
         </thead>
         <?php foreach ($board as $arry => $list) : ?>
-        <tbody>
-            <tr>
-                <td width="70">
-                    <? echo $list["id_key"]; ?>
-                </td>
-                <td width="500">
-                    <a href='/ci3-board/index.php/site/read/<?php echo $list["id_key"]; ?>'>
-                        <? echo $list["title"]; ?>
-                </td>
-                <td width="120">
-                    <? echo $list["uploader_id"]; ?>
-                </td>
-                <td width="100">
-                    <? echo $list["time"]; ?>
-                </td>
+            <tbody>
+                <tr>
+                    <td width="70">
+                        <? echo $list["b_idx"]; ?>
+                    </td>
+                    <td width="500">
+                        <a href='/ci3-board/site/read/<?php echo $list["b_idx"]; ?>'>
+                            <? echo $list["title"]; ?>
+                    </td>
+                    <td width="120">
+                        <? echo $list["uploader_id"]; ?>
+                    </td>
+                    <td width="100">
+                        <? echo $list["time"]; ?>
+                    </td>
 
-            </tr>
-        </tbody>
+                </tr>
+            </tbody>
         <?php endforeach; ?>
     </table>
 

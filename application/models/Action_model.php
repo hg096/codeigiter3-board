@@ -9,7 +9,6 @@ class Action_model extends CI_Model
     public function __construct()
     {
         parent::__construct();
-        $this->load->model("action_model");
     }
 
     // 데이터 넣기
@@ -49,98 +48,19 @@ class Action_model extends CI_Model
         return $result = $query->result_array();
     }
 
-
+    // 데이터 업데이트
     public function update_data($update)
     {
-
-        $total = [
-            "colum" => "u_id",
-            "num" => 1,
-            "tbl" => "users",
-            "data" => array(
-                "u_name" => "이름변경2",
-                "u_email" => "이메일변경2@메일.com",
-                "u_phone_num" => "123321",
-            ),
-        ];
-
-        $this->db->where($update["column"], $update["num"]);
-        $this->db->update($update["tbl"], $update["data"]);
+        $this->db->where($update["where"], $update["search"]);
+        $this->db->update($update["from"], $update["data"]);
 
         return True;
     }
 
+    // 데이터 삭제
     public function delete_data($delete)
     {
-        // 디비의 컬럼 값과 인덱스 값
-        // $delete["data"] = [
-        //     "u_id" => 5
-        // ];
-
+        // $delete["data"] = ["u_id" => 5];
         return $this->db->delete($delete["tbl"], $delete["data"]);
-    }
-
-    // 
-    // 
-
-    public function get_where_condition_query()
-    {
-        $total = [
-            "colum" => "u_salary",
-            "value" => 4000,
-            "tbl" => "users",
-
-        ];
-
-
-        $this->db->select("*");
-        $this->db->from($total["tbl"]);
-        // $this->db->where("u_salary >=", 3000); 
-        $this->db->where("$total[colum] >=", $total["value"]);
-        $query = $this->db->get();
-        return $result = $query->result();
-    }
-
-    public function get_and_condition()
-    {
-
-        $total = [
-
-            "tbl" => "users",
-
-        ];
-
-        $this->db->select("*");
-        $this->db->from($total["tbl"]);
-        $this->db->where([
-            "u_id" => 2,
-            "u_email" => "이메일@메일.com",
-        ]);
-        $query = $this->db->get();
-        return $result = $query->result();
-    }
-
-    public function get_where_in()
-    {
-        $this->db->select("*");
-        $this->db->from("users");
-        $this->db->where_in("u_salary", [3000, 3500, 4000]);
-
-        // 검색 컬럼과 조건이 들어감
-        // $this->db->like("u_email", ".com");
-
-        $query = $this->db->get();
-
-        return $result = $query->result();
-    }
-
-    public function get_user_message()
-    {
-        // join tbl_users => id, match user_id inside tbl_messages
-        $this->db->select("*");
-        $this->db->from("users");
-        $this->db->join("messages as m_message", "user.u_id = message.u_user_id");
-        $query = $this->db->get();
-        return $result = $query->result();
     }
 }

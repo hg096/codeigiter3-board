@@ -12,7 +12,7 @@
 
 
     <div class="container">
-        <form action="/ci3-board/index.php/action/register" method="post">
+        <form action="/ci3-board/action/register" method="post">
             <h4>회원가입 하기</h4>
             <p>이메일</p><input type="email" name="email"><br />
             <p>아이디</p><input type="text" name="id"><br />

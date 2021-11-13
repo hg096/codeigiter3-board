@@ -62,8 +62,8 @@ class Action extends CI_Controller
     // 로그인
     function login()
     {
-        $id = $this->db->escape_str($this->security->xss_clean($_POST['id']));
-        $pw = $this->db->escape_str($this->security->xss_clean($_POST['pw']));
+        $id = $this->db->escape_str($this->security->xss_clean($_GET['id']));
+        $pw = $this->db->escape_str($this->security->xss_clean($_GET['pw']));
 
         $sql = "SELECT * FROM `user` WHERE `u_id`='$id'";
         $query = $this->db->query($sql);
@@ -158,36 +158,37 @@ class Action extends CI_Controller
         echo ("<script>location.href='/ci3-board/';</script>");
         exit();
     }
-
-
-
-    // ==================
-    // 모든 데이터 조회
-    public function get_all_data()
+    // 게시물 수정
+    function modify($b_idx)
     {
-        $data = $this->action_model->select_all_data();
-        echo "<pre>";
-        print_r($data);
-    }
+        $title = $this->db->escape_str($this->security->xss_clean($_POST['title']));
+        $content = $this->db->escape_str($this->security->xss_clean($_POST['content']));
 
-    public function update_data()
-    {
-        if ($this->action_model->update_table_data()) {
-            echo "<h3> 업데이트 완료!! </h3>";
+        if ($title == NULL || $content == NULL) {
+            echo ("<script>alert('빈칸을 모두 채워주세요.')</script>");
+            echo ("<script>history.back();</script>");
+            exit();
         }
-    }
+        $time = date("Y-m-d H:i:s", time());
 
-    public function delete_single_user()
-    {
-        echo $this->action_model->delete_specific_user();
-    }
+        // $this->db->where($update["where"], $update["search"]);
+        // $this->db->update($update["from"], $update["data"]);
 
-    public function codition()
-    {
-        // $data = $this->action_model->get_where_condition_query();
-        // $data = $this->action_model->get_and_condition();
-        $data = $this->action_model->get_where_in();
-        echo "<pre>";
-        print_r($data);
+        // 데이터 정리
+        $data = [
+            "where" => "b_index", "search" => $b_idx, "from" => "board", "data" => ["b_title" => $title, "b_content" => $content, "b_date" => $time,]
+        ];
+
+        // $this->모델파일이름->함수이름(매개변수);
+        $result = $this->action_model->update_data($data);
+        if (empty($result)) {
+            echo ("<script>alert('게시물 수정에 실패했습니다.')</script>");
+            echo ("<script>history.back();</script>");
+            exit();
+        }
+
+        echo ("<script>alert('게시물이 수정되었습니다.')</script>");
+        echo ("<script>location.href='/ci3-board/';</script>");
+        exit();
     }
 }

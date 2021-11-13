@@ -10,7 +10,7 @@
 <body>
     <h3>로그인 페이지</h3>
 
-    <form action="/ci3-board/index.php/action/login" method="post">
+    <form action="/ci3-board/action/login" method="get">
         <h4>로그인 하기</h4>
         <p>아이디</p><input type="text" name="id"><br />
         <p>비밀번호</p><input type="password" name="pw"><br />
