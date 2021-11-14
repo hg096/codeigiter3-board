@@ -7,7 +7,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/ci3-board">Navbar</a>
+            <a class="navbar-brand" href="/ci3-board">게시판</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -16,8 +16,8 @@
                     <a class="nav-link active" aria-current="page" href="/ci3-board">메인</a>
 
                     <a class="nav-link" href="/ci3-board/site/join">가입</a>
-                    <a class="nav-link" href="/ci3-board/site/write">작성</a>
-                    <a class="nav-link" href="/ci3-board/site/modify">수정</a>
+                    <a class="nav-link" href="/ci3-board/site/b_write">작성</a>
+                    <a class="nav-link" href="/ci3-board/site/b_modify">수정</a>
 
                     <?php
                     session_start(); // 세션을 사용하려면 상단에 필요함

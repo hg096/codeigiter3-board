@@ -12,7 +12,7 @@
 
 
     <div class="container">
-        <form action="/ci3-board/action/write" method="post">
+        <form action="/ci3-board/action/b_write" method="post">
             <h4>게시물작성 하기</h4>
 
             <p>제목</p><textarea type="text" name="title" rows="5" cols="55"></textarea><br />

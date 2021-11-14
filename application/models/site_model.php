@@ -4,7 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Site_model extends CI_Model
 {
-    // 수동 접속
     // public function __construct()
     // {
     //     parent::__construct();
@@ -13,8 +12,5 @@ class Site_model extends CI_Model
     //     $this->load->database();
     // }
 
-    function run_my_query()
-    {
-        return "Site_model.run_my_query의 값";
-    }
+
 }

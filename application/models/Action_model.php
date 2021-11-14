@@ -61,6 +61,6 @@ class Action_model extends CI_Model
     public function delete_data($delete)
     {
         // $delete["data"] = ["u_id" => 5];
-        return $this->db->delete($delete["tbl"], $delete["data"]);
+        return $this->db->delete($delete["from"], $delete["data"]);
     }
 }

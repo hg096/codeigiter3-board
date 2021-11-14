@@ -11,7 +11,7 @@
     <h3>수정 페이지</h3>
 
     <div class="container">
-        <form action="/ci3-board/action/modify/<? echo $b_idx ?>" method="post">
+        <form action="/ci3-board/action/b_modify/<? echo $b_idx ?>" method="post">
 
             <h4>게시물수정 하기</h4>
             <p>제목</p><textarea type="text" name="title" rows="5" cols="55"><?php echo $title ?></textarea><br />
