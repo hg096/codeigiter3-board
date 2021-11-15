@@ -54,60 +54,39 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $route['default_controller'] = 'site';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
 // 함수에서 매개변수 받는 법
-$route["site/product/(:any)"] = "site/product/$1";
-$route["site/service/(:num)/(:any)"] = "site/service/$1/$2";
+// $route["site/product/(:any)"] = "site/product/$1";
+// $route["site/service/(:num)/(:any)"] = "site/service/$1/$2";
 
 
-// http://localhost/ci3-board/index.php/site/boardwrite
-$route["site/write"] = "site/write";
-// http://localhost/ci3-board/index.php/site/boardmodify
-$route["site/modify/(:any)"] = "site/modify/$1";
 
+// http://localhost/ci3-board/
+$route["(:num)"] = "board/index";
+// http://localhost/ci3-board/site/boardwrite
+$route["board/write"] = "board/write";
+// http://localhost/ci3-board/site/boardmodify
+$route["board/modify/(:any)"] = "board/modify/$1";
+// http://localhost/ci3-board/site/boardmodify
+$route["board/read/(:any)"] = "board/read/$1";
 
-// http://localhost/ci3-board/index.php/site/boardmodify
-$route["site/join"] = "site/join";
-// http://localhost/ci3-board/index.php/site/boardmodify
-$route["site/login"] = "site/login";
-
-// 테스트
-$route["test/home"] = "test";
-// 테스트 모델로
-$route["test/model/(:any)"] = "test/model/$1";
+// http://localhost/ci3-board/site/boardmodify
+$route["user/join"] = "user/join";
+// http://localhost/ci3-board/site/boardmodify
+$route["user/login"] = "user/login";
 
 
 // 유저
 // 
 // 가입
-$route['action/register'] = "action/register";
+// $route['action/register'] = "action/register";
 // 로그인
-$route['action/login'] = "action/login";
+// $route['action/login'] = "action/login";
 // 로그아웃
-$route['action/logout'] = "action/logout";
+// $route['action/logout'] = "action/logout";
 // 회원탈퇴
-$route['action/withdrawal'] = "action/withdrawal";
+// $route['action/withdrawal'] = "action/withdrawal";
 
 
 
 // $route["추가 할 url 컨트롤러 이름이랑 무관"] = "컨트롤러/함수"
-
-
-// 데이터 추가
-// http://localhost/ci3/index.php/action/insert-data
-$route["action/insert-data"] = "action/insert_data_into_table";
-
-// 데이터 조회
-// http://localhost/ci3/index.php/action/select-all
-$route["action/select-all"] = "action/get_all_data";
-
-// 데이터 업데이트
-// http://localhost/ci3/index.php/action/update-data
-$route["action/update-data"] = "action/update_data";
-
-// 데이터 삭제
-// http://localhost/ci3/index.php/action/delete-single
-$route["action/delete-single"] = "action/delete_single_user";
-
-// 데이터 조회 조건
-// http://localhost/ci3/index.php/action/codition
-$route["action/codition"] = "action/codition";

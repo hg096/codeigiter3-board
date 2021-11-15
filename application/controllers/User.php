@@ -1,6 +1,4 @@
-<?php
-
-class Action extends CI_Controller
+<?php class User extends CI_Controller
 {
     // 데이터 출력
     // echo "<pre>";
@@ -10,17 +8,33 @@ class Action extends CI_Controller
     {
         parent::__construct();
         $this->load->model("action_model");
+        $this->load->helper('form'); //이게 있어야 form_open폼 사용가능
+
     }
 
+    public function join()
+    {
+        $this->load->view("site/Register_v");
+    }
+    public function login()
+    {
+        $this->load->view("site/Login_v");
+    }
+
+
+    // =============
+
     // 가입
-    function register()
+    function u_register()
     {
         $email = $this->db->escape_str($this->security->xss_clean($_POST['email']));
         $id = $this->db->escape_str($this->security->xss_clean($_POST['id']));
         $pw = $this->db->escape_str($this->security->xss_clean($_POST['pw']));
         $pwc = $this->db->escape_str($this->security->xss_clean($_POST['pwc']));
 
-        if ($email == NULL || $id == NULL || $pw == NULL || $pwc == NULL) {
+        if (
+            $email == NULL || $id == NULL || $pw == NULL || $pwc == NULL
+        ) {
             echo ("<script>alert('빈칸을 모두 채워주세요.')</script>");
             echo ("<script>history.back();</script>");
             exit();
@@ -65,7 +79,7 @@ class Action extends CI_Controller
         }
     }
     // 로그인
-    function login()
+    function u_login()
     {
         $id = $this->db->escape_str($this->security->xss_clean($_GET['id']));
         $pw = $this->db->escape_str($this->security->xss_clean($_GET['pw']));
@@ -105,7 +119,7 @@ class Action extends CI_Controller
         }
     }
     // 로그아웃
-    function logout()
+    function u_logout()
     {
         session_start();
         session_destroy();
@@ -113,7 +127,7 @@ class Action extends CI_Controller
         echo ("<script>location.href='/ci3-board';</script>");
     }
     // 계정 삭제
-    function withdrawal()
+    function u_withdrawal()
     {
         session_start();
         $user_id = $_SESSION['user_id'];
@@ -145,129 +159,5 @@ class Action extends CI_Controller
 
         echo ("<script>alert('계정을 삭제했습니다.')</script>");
         echo ("<script>location.href='/ci3-board';</script>");
-    }
-
-    // =====================
-    // 게시물 작성
-    function b_write()
-    {
-        $title = $this->db->escape_str($this->security->xss_clean($_POST['title']));
-        $content = $this->db->escape_str($this->security->xss_clean($_POST['content']));
-
-        if ($title == NULL || $content == NULL) {
-            echo ("<script>alert('빈칸을 모두 채워주세요.')</script>");
-            echo ("<script>history.back();</script>");
-            exit();
-        }
-
-        session_start();
-        $user_id = $_SESSION['user_id'];
-        $time = date("Y-m-d H:i:s", time());
-
-        // 데이터 정리
-        $tbl = 'board';
-        $data = [
-            "b_user_id" => $user_id, "b_title" => $title, "b_content" => $content, "b_date" => $time, "b_hit" => 0
-        ];
-
-        // $this->모델파일이름->함수이름(매개변수);
-        $result = $this->action_model->insert_data($tbl, $data);
-        if (empty($result)) {
-            echo ("<script>alert('오류가 발생했습니다, 관리자에게 문의해주세요.')</script>");
-            echo ("<script>history.back();</script>");
-            exit();
-        }
-
-        echo ("<script>alert('게시물이 작성되었습니다.')</script>");
-        echo ("<script>location.href='/ci3-board/';</script>");
-        exit();
-    }
-    // 게시물 수정
-    function b_modify($b_idx)
-    {
-        $title = $this->db->escape_str($this->security->xss_clean($_POST['title']));
-        $content = $this->db->escape_str($this->security->xss_clean($_POST['content']));
-
-        if ($title == NULL || $content == NULL) {
-            echo ("<script>alert('빈칸을 모두 채워주세요.')</script>");
-            echo ("<script>history.back();</script>");
-            exit();
-        }
-        $time = date("Y-m-d H:i:s", time());
-
-        // 데이터 정리
-        $data = [
-            "where" => "b_idx", "search" => $b_idx, "from" => "board", "data" => ["b_title" => $title, "b_content" => $content, "b_date" => $time,]
-        ];
-
-        // $this->모델파일이름->함수이름(매개변수);
-        $result = $this->action_model->update_data($data);
-        if (empty($result)) {
-            echo ("<script>alert('게시물 수정에 실패했습니다.')</script>");
-            echo ("<script>history.back();</script>");
-            exit();
-        }
-
-        echo ("<script>alert('게시물이 수정되었습니다.')</script>");
-        echo ("<script>location.href='/ci3-board/';</script>");
-        exit();
-    }
-    // 게시물 삭제
-    function b_delete($b_idx)
-    {
-        // 데이터 정리
-        $data = [
-            "from" => "board", "data" => ["b_idx" => $b_idx]
-        ];
-        // $this->모델파일이름->함수이름(매개변수);
-        $result = $this->action_model->delete_data($data);
-        $sql = "alter table board auto_increment = 1";
-        $query = $this->db->query($sql);
-
-        if (empty($result)) {
-            echo ("<script>alert('게시물 삭제에 실패했습니다.')</script>");
-            echo ("<script>history.back();</script>");
-            exit();
-        }
-        echo ("<script>alert('게시물을 삭제했습니다.')</script>");
-        echo ("<script>location.href='/ci3-board';</script>");
-    }
-
-    // 댓글 작성
-    function reply()
-    {
-        $b_idx = $this->db->escape_str($this->security->xss_clean($_POST['b_idx']));
-        $reply = $this->db->escape_str($this->security->xss_clean($_POST['reply']));
-        $time = date("Y-m-d H:i:s", time());
-
-        if ($reply == NULL) {
-            echo ("<script>alert('빈칸을 모두 채워주세요.')</script>");
-            echo ("<script>history.back();</script>");
-            exit();
-        }
-
-        session_start();
-        if (isset($_SESSION['user_id'])) {
-            $b_user_id = $_SESSION['user_id'];
-        }
-
-        // 데이터 정리
-        $tbl = 'reply';
-        $data = [
-            "r_board_idx" => $b_idx, "r_user_id" => $b_user_id,  "r_content" => $reply, "r_date" => $time
-        ];
-
-        // $this->모델파일이름->함수이름(매개변수);
-        $result = $this->action_model->insert_data($tbl, $data);
-        if (
-            $result == false
-        ) {
-            echo ("<script>alert('댓글 작성을 실패했습니다.')</script>");
-            echo ("<script>history.back();</script>");
-            exit();
-        }
-
-        echo ("<script>alert('댓글을 작성했습니다.')</script>");
-        echo ("<script>history.back();</script>");
     }
 }

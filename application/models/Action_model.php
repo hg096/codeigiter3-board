@@ -63,4 +63,18 @@ class Action_model extends CI_Model
         // $delete["data"] = ["u_id" => 5];
         return $this->db->delete($delete["from"], $delete["data"]);
     }
+
+
+    public function get_count($table)
+    {
+        return $this->db->count_all($table);
+    }
+
+    public function get_pagination($limit, $start, $table)
+    {
+        $this->db->limit($limit, $start);
+        $query = $this->db->get($table);
+
+        return $query->result();
+    }
 }
