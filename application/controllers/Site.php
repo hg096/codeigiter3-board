@@ -3,6 +3,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Site extends CI_Controller
 {
+    // 데이터 출력
+    // echo "<pre>";
+    // print_r($);
 
     public function __construct()
     {
@@ -10,7 +13,7 @@ class Site extends CI_Controller
         $this->load->model("action_model"); // 조회수 증가에 사용
         $this->load->model("site_model");
         $this->load->helper('form'); //이게 있어야 form_open폼 사용가능
-
+        // $this->load->library("pagination");
     }
 
     public function index()
@@ -50,8 +53,7 @@ class Site extends CI_Controller
         if (empty($read) || empty($idx)) {
             redirect();
         }
-        // echo "<pre>";
-        // print_r($read);
+
         $read = $read[0];
 
         $this->load->view("site/Modify_v", $read);
@@ -69,14 +71,12 @@ class Site extends CI_Controller
         }
 
         // 조회수 증가
-        $hit = $read["b_hit"] + 1;
+        $hit = $read[0]["b_hit"] + 1;
         $data = [
-            "where" => "b_index", "search" => $idx, "from" => "board", "data" => ["b_hit" => $hit]
+            "where" => "b_idx", "search" => $idx, "from" => "board", "data" => ["b_hit" => $hit]
         ];
         $result = $this->action_model->update_data($data);
 
-        // echo "<pre>";
-        // print_r($read);
         $read = $read[0];
 
         $this->load->view("site/Read_v", $read);

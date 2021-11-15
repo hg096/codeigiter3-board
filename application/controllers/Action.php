@@ -2,6 +2,10 @@
 
 class Action extends CI_Controller
 {
+    // 데이터 출력
+    // echo "<pre>";
+    // print_r($);
+
     public function __construct()
     {
         parent::__construct();
@@ -106,10 +110,18 @@ class Action extends CI_Controller
         $sql1 = "DELETE FROM user WHERE `u_id` = '$user_id'";
         $sql2 = "DELETE FROM board WHERE `u_id` = '$user_id'";
         $sql3 = "DELETE FROM reply WHERE `u_id` = '$user_id'";
+        $sql4 = "alter table user auto_increment = 1";
+        $sql5 = "alter table board auto_increment = 1";
+        $sql6 = "alter table reply auto_increment = 1";
+
 
         $result1 = $this->db->query($sql1);
         $result2 = $this->db->query($sql2);
         $result3 = $this->db->query($sql3);
+        $query = $this->db->query($sql4);
+        $query = $this->db->query($sql5);
+        $query = $this->db->query($sql6);
+
 
         // 엠티 체크를 유저만 하는 이유: 가입만하고 게시물과 댓글을 안쓸수도 있어서
         if (empty($result1)) {
@@ -122,7 +134,6 @@ class Action extends CI_Controller
         echo ("<script>alert('계정을 삭제했습니다.')</script>");
         echo ("<script>location.href='/ci3-board';</script>");
     }
-
 
     // =====================
     // 게시물 작성
@@ -174,7 +185,7 @@ class Action extends CI_Controller
 
         // 데이터 정리
         $data = [
-            "where" => "b_index", "search" => $b_idx, "from" => "board", "data" => ["b_title" => $title, "b_content" => $content, "b_date" => $time,]
+            "where" => "b_idx", "search" => $b_idx, "from" => "board", "data" => ["b_title" => $title, "b_content" => $content, "b_date" => $time,]
         ];
 
         // $this->모델파일이름->함수이름(매개변수);
@@ -194,10 +205,12 @@ class Action extends CI_Controller
     {
         // 데이터 정리
         $data = [
-            "from" => "board", "data" => ["u_id" => $b_idx]
+            "from" => "board", "data" => ["b_idx" => $b_idx]
         ];
         // $this->모델파일이름->함수이름(매개변수);
         $result = $this->action_model->delete_data($data);
+        $sql = "alter table board auto_increment = 1";
+        $query = $this->db->query($sql);
 
         if (empty($result)) {
             echo ("<script>alert('게시물 삭제에 실패했습니다.')</script>");
